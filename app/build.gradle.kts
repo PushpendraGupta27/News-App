@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.ksp)
+    id("kotlin-parcelize")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -38,6 +40,8 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+
 }
 
 dependencies {

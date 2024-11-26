@@ -1,8 +1,10 @@
 package com.example.newsapp.model.response
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 data class NewsResponse(
     @SerializedName("articles")
@@ -13,12 +15,13 @@ data class NewsResponse(
     var totalResults: Int?,
 )
 
-/*@Entity(
+@Entity(
     tableName = "articles"
-)*/
+)
 
+@Parcelize
 data class Article(
-//    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = true)
     var id: Int? = null,
     @SerializedName("author")
     var author: String?,
@@ -36,13 +39,14 @@ data class Article(
     var url: String?,
     @SerializedName("urlToImage")
     var urlToImage: String?,
-)
+) : Parcelable
 
+@Parcelize
 data class Source(
     @SerializedName("id")
     var id: String?,
     @SerializedName("name")
     var name: String?,
-)
+) : Parcelable
 
 

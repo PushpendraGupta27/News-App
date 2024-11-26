@@ -9,6 +9,7 @@ import com.example.newsapp.NewsViewModelProvider
 import com.example.newsapp.R
 import com.example.newsapp.data.repository.NewsRepository
 import com.example.newsapp.databinding.ActivityNewsBinding
+import com.example.newsapp.roomDB.ArticleDatabase
 import com.example.newsapp.viewModels.NewsViewModels
 
 class NewsActivity : AppCompatActivity() {
@@ -20,9 +21,7 @@ class NewsActivity : AppCompatActivity() {
         binding = ActivityNewsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val newsRepository = NewsRepository()
-
-//        val newsRepository = NewsRepository(ArticleDatabase(this))
+        val newsRepository = NewsRepository(ArticleDatabase(this))
         val viewModelProviderFactory = NewsViewModelProvider(newsRepository)
         viewModel = ViewModelProvider(this, viewModelProviderFactory)[NewsViewModels::class.java]
 

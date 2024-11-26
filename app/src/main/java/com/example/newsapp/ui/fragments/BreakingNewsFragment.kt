@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.example.newsapp.R
 import com.example.newsapp.adapters.NewsAdapter
 import com.example.newsapp.databinding.FragmentBreakingNewsBinding
 import com.example.newsapp.model.response.Article
@@ -43,11 +44,18 @@ class BreakingNewsFragment : Fragment() {
     }
 
     private fun clickOnArticle(pos: Int, model: Article, src: String) {
-
+        when (src) {
+            "root" -> {
+                val bundle = Bundle().apply {
+                    putParcelable("article", model)
+                }
+                findNavController().navigate(R.id.action_breakingNewsFragment_to_newsArticleFragment,bundle)
+            }
+        }
     }
 
     private fun breakingNewsApi() {
-        viewModel.breakingNews.observe(viewLifecycleOwner, Observer { response ->
+        viewModel.breakingNews.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
                     binding.paginationProgressBar.visibility = View.INVISIBLE
@@ -69,7 +77,7 @@ class BreakingNewsFragment : Fragment() {
                 }
             }
 
-        })
+        }
     }
 
     override fun onDestroyView() {
