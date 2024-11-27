@@ -9,8 +9,10 @@ import android.widget.AbsListView
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.newsapp.R
 import com.example.newsapp.adapters.NewsAdapter
 import com.example.newsapp.databinding.FragmentSearchNewsBinding
 import com.example.newsapp.model.response.Article
@@ -65,7 +67,17 @@ class SearchNewsFragment : Fragment() {
     }
 
     private fun clickOnArticle(pos: Int, model: Article, src: String) {
-
+        when (src) {
+            "root" -> {
+                val bundle = Bundle().apply {
+                    putParcelable("article", model)
+                }
+                findNavController().navigate(
+                    R.id.action_searchNewsFragment_to_newsArticleFragment,
+                    bundle
+                )
+            }
+        }
     }
 
     private fun searchNewsApi() {
